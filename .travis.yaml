@@ -6,8 +6,8 @@ services:
 env:
   global:
     # change the registry name and username/password to yourself's.
-    - DOCKER_HUB=k8s-copy
-    - ALI_REGISTRY=registry.cn-hangzhou.aliyuncs.com/k8s-copy
+    - DOCKER_HUB=k8sproxy
+    - ALI_REGISTRY=registry.cn-hangzhou.aliyuncs.com/k8sproxy
 
 before_script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin

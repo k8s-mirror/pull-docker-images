@@ -6,7 +6,7 @@ services:
 env:
   global:
     # change the registry name and username/password to yourself's.
-    - DOCKER_HUB=k8sproxy
+    - DOCKER_HUB=k8scopy
     - ALI_REGISTRY=registry.cn-hangzhou.aliyuncs.com/k8sproxy
 
 before_script:

@@ -29,4 +29,4 @@ script:
       docker push $DOCKER_HUB/$image_name
       # push到阿里云仓库
       docker push $ALI_REGISTRY/$image_name
-    dones
+    done

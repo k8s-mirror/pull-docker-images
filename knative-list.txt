@@ -1,9 +1,12 @@
-gcr.io/knative-releases/knative.dev/serving/cmd/activator@sha256:e743f3309af4b79fe6af377b7bd5ae059a422c0db3d6aed2ae48d79b8aa59edf,knativedev/serving-cmd-activator
-gcr.io/knative-releases/knative.dev/serving/cmd/autoscaler@sha256:2ef460356b17481bc467fc7c35da581707dc490b1f32083457d6d4faed9ef300,knativedev/serving-cmd-autoscaler
-gcr.io/knative-releases/knative.dev/serving/cmd/controller@sha256:30ce73388ae53e44edb52c1ef3b73b755e47004a90781fa9e0257cd021b20327,knativedev/serving-cmd-controller
 gcr.io/knative-releases/knative.dev/net-istio/cmd/webhook@sha256:439b6d1669c8d010d4c54c37578dd6165e1f181d3595aa9b2d628f76a906f904,knativedev/net-istio-cmd-webhook
 gcr.io/knative-releases/knative.dev/net-istio/cmd/controller@sha256:d1a2143c0e7b6d5891426ca12e1de940c08caeafafe6ca4f23a560d03a0854c5,knativedev/net-istio-cmd-controller
+
+gcr.io/knative-releases/knative.dev/serving/cmd/activator@sha256:e743f3309af4b79fe6af377b7bd5ae059a422c0db3d6aed2ae48d79b8aa59edf,knativedev/serving-cmd-activator
+gcr.io/knative-releases/knative.dev/serving/cmd/autoscaler@sha256:2ef460356b17481bc467fc7c35da581707dc490b1f32083457d6d4faed9ef300,knativedev/serving-cmd-autoscaler
+gcr.io/knative-releases/knative.dev/serving/cmd/autoscaler-hpa@sha256:e2a6d606d581cb3c34513617bd898e00ea8794f59481848901717964845d1603,knativedev/serving-cmd-autoscaler-hpa
+gcr.io/knative-releases/knative.dev/serving/cmd/controller@sha256:30ce73388ae53e44edb52c1ef3b73b755e47004a90781fa9e0257cd021b20327,knativedev/serving-cmd-controller
 gcr.io/knative-releases/knative.dev/serving/cmd/webhook@sha256:f16c0e022203f70a4228fba7d4cd951739ee43b491af9dbc569f233c9588e92a,knativedev/serving-cmd-webhook
+gcr.io/knative-releases/knative.dev/serving/cmd/queue@sha256:ab38418f2e13dfc21d48c64af0589f4eae5c40fc34a5e02f48b24b7156391d22,knativedev/serving-cmd-queue
 
 gcr.io/knative-releases/knative.dev/eventing/cmd/mtbroker/filter@sha256:3b85d745bba2f32f2e60ddca2781969198d8c82434e18706c040b06884a42f8d,knativedev/eventing-cmd-mtbroker-filter
 gcr.io/knative-releases/knative.dev/eventing/cmd/mtbroker/ingress@sha256:b856d2e4184f5cd5fe2716a89d39a055b776f0e717206b5f612beaa9c93fd60e,knativedev/eventing-cmd-mtbroker-ingress
@@ -12,3 +15,11 @@ gcr.io/knative-releases/knative.dev/eventing/cmd/webhook@sha256:5ec94b03015378e8
 gcr.io/knative-releases/knative.dev/eventing/cmd/in_memory/channel_controller@sha256:5bae1865c588b21ce04562616ea12a8b6eef9a380db2ee87d217171c0143c4cc,knativedev/eventing-cmd-in_memory-channel_controller
 gcr.io/knative-releases/knative.dev/eventing/cmd/in_memory/channel_dispatcher@sha256:d271dc40ef6d1161b28b0b61dfa71583e89ad6c8847adeede1a8504fb8f5b908,knativedev/eventing-cmd-in_memory-channel_dispatcher
 gcr.io/knative-releases/knative.dev/eventing/cmd/mtchannel_broker@sha256:31ba50ad423be0cbece62cdb01aa1f75958c56503d8b7cde0b4b1e91ea357243,knativedev/eventing-cmd-mtchannel_broker
+
+gcr.io/knative-samples/helloworld-go,knativedev/samples-helloworld-go
+
+k8s.gcr.io/elasticsearch:v5.6.4,knativedev/elasticsearch
+k8s.gcr.io/fluentd-elasticsearch:v2.0.4,knativedev/fluentd-elasticsearch
+k8s.gcr.io/fluentd-elasticsearch:v2.4.0,knativedev/fluentd-elasticsearch
+gcr.io/knative-releases/knative.dev/net-certmanager/cmd/webhook@sha256:873b968f02b58e2bb3a1596209c37dee3ab75862f5a929b6b9a2ce7fea8bc14d,knativedev/net-certmanager-cmd-webhook
+gcr.io/knative-releases/knative.dev/net-certmanager/cmd/controller@sha256:4448da9fc1b990b0d265894237814951c8e0cca259798842035d24763f051b7d,knativedev/net-certmanager-cmd-controller

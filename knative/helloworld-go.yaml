@@ -1,0 +1,15 @@
+apiVersion: serving.knative.dev/v1 # Current version of Knative
+kind: Service
+metadata:
+  name: helloworld # The name of the app
+  namespace: 91qunpin # The namespace the app will use
+  annotations:
+    custom-hostname: hello-world
+spec:
+  template:
+    spec:
+      containers:
+        - image: knativedev/samples-helloworld-go # Reference to the image of the app
+          env:
+            - name: TARGET # The environment variable printed out by the sample app
+              value: "Go Sample v1"

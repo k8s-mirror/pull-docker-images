@@ -4,7 +4,7 @@
 # docker tag $image docker.io/$tag
 # docker push $tag
 
-for image in $(cat knative-list.txt)
+for image in $(cat knative-list-tmp.txt)
 do
 # echo ${image}
 oldIFS=$IFS

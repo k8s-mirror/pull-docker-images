@@ -83,8 +83,19 @@
    ```
 
 5. 获取访问密码
+
    默认用户：elastic
 
    ```sh
    kubectl get secret elasticsearch-es-elastic-user -o=jsonpath='{.data.elastic}' -n eck | base64 --decode; echo
    ```
+
+6. 访问
+
+   浏览器打开 https://localhost:5601
+
+## 部署 metricbeat
+
+```sh
+kubectl apply -f elasticsearch/beats/metricbeat_hosts.yaml
+```

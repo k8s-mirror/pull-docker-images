@@ -96,6 +96,32 @@
 
 ## 部署 metricbeat
 
-```sh
-kubectl apply -f elasticsearch/beats/metricbeat_hosts.yaml
-```
+1. 部署
+
+   ```sh
+   kubectl apply -f elasticsearch/beats/metricbeat_hosts.yaml
+   ```
+
+2. 查看
+
+   ```sh
+   kubectl get beat -n eck
+   ```
+
+3. 查看 pod
+
+   ```sh
+   kubectl get pods --selector='beat.k8s.elastic.co/name=metricbeat' -n eck
+   ```
+
+4. 查看 pod 日志
+
+   ```sh
+   kubectl logs -f metricbeat-beat-metricbeat-bpzdr -n eck
+   ```
+
+5. 访问日志
+
+   ```sh
+   curl -u "elastic:$PASSWORD" -k "https://localhost:9200/metricbeat-*/_search
+   ```

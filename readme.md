@@ -123,5 +123,5 @@
 5. 访问日志
 
    ```sh
-   curl -u "elastic:$PASSWORD" -k "https://localhost:9200/metricbeat-*/_search
+   curl -u "elastic:$PASSWORD" -k "https://localhost:9200/metricbeat-*/_search"
    ```

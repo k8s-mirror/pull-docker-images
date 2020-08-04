@@ -1,1 +1,1 @@
-k8s.gcr.io/fluentd-elasticsearch:v2.4.0,knativedev/fluentd-elasticsearch
+docker.elastic.co/beats/filebeat:7.8.1,elasticmirror/filebeat

@@ -23,3 +23,5 @@ k8s.gcr.io/fluentd-elasticsearch:v2.0.4,knativedev/fluentd-elasticsearch
 k8s.gcr.io/fluentd-elasticsearch:v2.4.0,knativedev/fluentd-elasticsearch
 gcr.io/knative-releases/knative.dev/net-certmanager/cmd/webhook@sha256:873b968f02b58e2bb3a1596209c37dee3ab75862f5a929b6b9a2ce7fea8bc14d,knativedev/net-certmanager-cmd-webhook
 gcr.io/knative-releases/knative.dev/net-certmanager/cmd/controller@sha256:4448da9fc1b990b0d265894237814951c8e0cca259798842035d24763f051b7d,knativedev/net-certmanager-cmd-controller
+
+docker.elastic.co/beats/filebeat:7.8.1,elasticmirror/filebeat

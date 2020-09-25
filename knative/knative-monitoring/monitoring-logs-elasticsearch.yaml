@@ -85,7 +85,7 @@ spec:
     spec:
       serviceAccountName: elasticsearch-logging
       containers:
-        - image: k8s.gcr.io/elasticsearch:v5.6.4
+        - image: docker.elastic.co/elasticsearch/elasticsearch:5.6.4
           name: elasticsearch-logging
           resources:
             limits:
@@ -201,7 +201,7 @@ metadata:
   name: fluentd-ds-config
   namespace: knative-monitoring
   labels:
-    serving.knative.dev/release: "v0.17.0"
+    serving.knative.dev/release: "v0.16.0"
 data:
   100.system.conf: |-
     <system>
@@ -323,7 +323,8 @@ metadata:
   namespace: knative-monitoring
   labels:
     app: fluentd-ds
-    serving.knative.dev/release: "v0.17.0"
+    serving.knative.dev/release: "v0.16.0"
+automountServiceAccountToken: false
 ---
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
@@ -331,7 +332,7 @@ metadata:
   name: fluentd-ds
   labels:
     app: fluentd-ds
-    serving.knative.dev/release: "v0.17.0"
+    serving.knative.dev/release: "v0.16.0"
 rules:
   - apiGroups:
       - ""
@@ -349,7 +350,7 @@ metadata:
   name: fluentd-ds
   labels:
     app: fluentd-ds
-    serving.knative.dev/release: "v0.17.0"
+    serving.knative.dev/release: "v0.16.0"
 subjects:
   - kind: ServiceAccount
     name: fluentd-ds
@@ -370,7 +371,7 @@ metadata:
   namespace: knative-monitoring
   labels:
     app: fluentd-ds
-    serving.knative.dev/release: "v0.17.0"
+    serving.knative.dev/release: "v0.16.0"
 spec:
   selector:
     app: fluentd-ds
@@ -392,7 +393,7 @@ metadata:
   labels:
     app: fluentd-ds
     version: v2.0.4
-    serving.knative.dev/release: "v0.17.0"
+    serving.knative.dev/release: "v0.16.0"
 spec:
   selector:
     matchLabels:
@@ -403,22 +404,47 @@ spec:
       labels:
         app: fluentd-ds
         version: v2.0.4
-        serving.knative.dev/release: "v0.17.0"
+        serving.knative.dev/release: "v0.16.0"
       # This annotation ensures that fluentd does not get evicted if the node
       # supports critical pod annotation based priority scheme.
       # Note that this does not guarantee admission on the nodes (#40573).
       annotations:
         scheduler.alpha.kubernetes.io/critical-pod: ""
     spec:
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
       serviceAccountName: fluentd-ds
       containers:
         - name: fluentd-ds
-          image: k8s.gcr.io/fluentd-elasticsearch:v2.0.4
+          image: fluent/fluentd-kubernetes-daemonset:v1-debian-elasticsearch
           env:
-            - name: FLUENTD_ARGS
-              value: --no-supervisor -q
-            - name: KUBERNETES_URL
-              value: "https://47.94.26.160:6443api"
+            - name: FLUENT_ELASTICSEARCH_HOST
+              value: "elasticsearch-logging"
+            - name: FLUENT_ELASTICSEARCH_PORT
+              value: "9200"
+            - name: FLUENT_ELASTICSEARCH_SCHEME
+              value: "http"
+            # Option to configure elasticsearch plugin with self signed certs
+            # ================================================================
+            - name: FLUENT_ELASTICSEARCH_SSL_VERIFY
+              value: "true"
+            # Option to configure elasticsearch plugin with tls
+            # ================================================================
+            - name: FLUENT_ELASTICSEARCH_SSL_VERSION
+              value: "TLSv1_2"
+            # X-Pack Authentication
+            # =====================
+            - name: FLUENT_ELASTICSEARCH_USER
+              value: "elastic"
+            - name: FLUENT_ELASTICSEARCH_PASSWORD
+              value: "changeme"
+            # Logz.io Authentication
+            # ======================
+            - name: LOGZIO_TOKEN
+              value: "ThisIsASuperLongToken"
+            - name: LOGZIO_LOGTYPE
+              value: "kubernetes"
           resources:
             limits:
               memory: 500Mi
@@ -426,49 +452,21 @@ spec:
               cpu: 100m
               memory: 200Mi
           volumeMounts:
-            - name: varlogcontainers
-              mountPath: /var/log/containers
-              readOnly: true
-            - name: varlogpods
-              mountPath: /var/log/pods
-              readOnly: true
+            - name: varlog
+              mountPath: /var/log
             - name: varlibdockercontainers
               mountPath: /var/lib/docker/containers
               readOnly: true
-            - name: varlibkubeletpods
-              mountPath: /var/lib/kubelet/pods
-              readOnly: true
-            - name: libsystemddir
-              mountPath: /host/lib
-              readOnly: true
-            - name: config-volume
-              mountPath: /etc/fluent/config.d
       nodeSelector:
         beta.kubernetes.io/fluentd-ds-ready: "true"
       terminationGracePeriodSeconds: 30
       volumes:
-        - name: varlogcontainers
+        - name: varlog
           hostPath:
-            path: /var/log/containers
-        - # It is needed because files under /var/log/containers link to /var/log/pods
-          name: varlogpods
-          hostPath:
-            path: /var/log/pods
-        - # It is needed because files under /var/log/pods link to /var/lib/docker/containers
-          name: varlibdockercontainers
+            path: /var/log
+        - name: varlibdockercontainers
           hostPath:
             path: /var/lib/docker/containers
-        - # It is needed because user-container's /var/log is located in /var/lib/kubelet/pods/*/volumes/
-          name: varlibkubeletpods
-          hostPath:
-            path: /var/lib/kubelet/pods
-        - # It is needed to copy systemd library to decompress journals
-          name: libsystemddir
-          hostPath:
-            path: /usr/lib64
-        - name: config-volume
-          configMap:
-            name: fluentd-ds-config
 
 ---
 

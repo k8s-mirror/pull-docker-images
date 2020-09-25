@@ -20,14 +20,14 @@ metadata:
   # we have to install to istio-system until istio allows overriding this behavior.
   namespace: istio-system
   labels:
-    serving.knative.dev/release: "v0.16.0"
+    serving.knative.dev/release: "v0.17.0"
 spec:
   strategy: production
   storage:
     type: elasticsearch
     options:
       es:
-        server-urls: https://quickstart-es-http:9200
+        server-urls: http://elasticsearch-logging.knative-monitoring.svc.cluster.local:9200
 
 ---
 # Copyright 2019 The Knative Authors
@@ -52,13 +52,12 @@ metadata:
   # we have to install to istio-system until istio allows overriding this behavior.
   namespace: istio-system
   labels:
-    serving.knative.dev/release: "v0.16.0"
+    serving.knative.dev/release: "v0.17.0"
 spec:
   ports:
-    - name: http
-      port: 9411
+  - name: http
+    port: 9411
   selector:
     app: jaeger
 
 ---
-

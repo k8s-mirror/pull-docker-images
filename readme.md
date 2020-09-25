@@ -125,3 +125,22 @@
    ```sh
    curl -u "elastic:$PASSWORD" -k "https://localhost:9200/metricbeat-*/_search"
    ```
+
+## kubectl ui
+
+```sh
+kubectl proxy
+```
+
+访问：http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
+
+## 访问度量
+
+```sh
+kubectl port-forward --namespace knative-monitoring \
+$(kubectl get pods --namespace knative-monitoring \
+--selector=app=grafana --output=jsonpath="{.items..metadata.name}") \
+3000
+```
+
+访问：http://localhost:3000

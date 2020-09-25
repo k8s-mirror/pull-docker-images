@@ -1,0 +1,17 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  namespace: knative-monitoring
+  name: elasticsearch-logging
+  labels:
+    app: elasticsearch-logging
+    kubernetes.io/cluster-service: "true"
+subjects:
+  - kind: ServiceAccount
+    name: elasticsearch-logging
+    namespace: knative-monitoring
+    apiGroup: ""
+roleRef:
+  kind: ClusterRole
+  name: elasticsearch-logging
+  apiGroup: ""

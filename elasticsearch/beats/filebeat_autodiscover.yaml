@@ -89,7 +89,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: filebeat
-    namespace: default
+    namespace: eck
 roleRef:
   kind: ClusterRole
   name: filebeat

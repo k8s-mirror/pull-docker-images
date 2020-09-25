@@ -16,15 +16,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: zipkin
-  # istio assumes that zipkin is installed in istio-system namespace -
+  # istio assumes that zipkin is installed in istio-system namespace - 
   # we have to install to istio-system until istio allows overriding this behavior.
   namespace: istio-system
   labels:
     serving.knative.dev/release: "v0.17.0"
 spec:
   ports:
-    - name: http
-      port: 9411
+  - name: http
+    port: 9411
   selector:
     app: zipkin
 ---
@@ -49,32 +49,29 @@ spec:
         sidecar.istio.io/inject: "false"
     spec:
       containers:
-        - name: zipkin
-          image: docker.io/openzipkin/zipkin:latest
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 9411
-          env:
-            - name: QUERY_LOG_LEVEL
-              value: debug
-            - name: POD_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  apiVersion: v1
-                  fieldPath: metadata.namespace
-            - name: STORAGE_TYPE
-              value: elasticsearch
-            - name: ES_HOSTS
-              value: elasticsearch-es-default.knative-monitoring:9200
-            - name: ES_INDEX
-              value: zipkin
-            - name: ZIPKIN_UI_LOGS_URL
-              value: http://localhost:8001/api/v1/namespaces/knative-monitoring/services/kibana-logging/proxy/app/kibana#/
-          resources:
-            limits:
-              memory: 1000Mi
-            requests:
-              memory: 256Mi
+      - name: zipkin
+        image: docker.io/openzipkin/zipkin:2.13.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9411
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: STORAGE_TYPE
+          value: elasticsearch
+        - name: ES_HOSTS
+          value: elasticsearch-logging.knative-monitoring.svc.cluster.local:9200
+        - name: ES_INDEX
+          value: zipkin
+        - name: ZIPKIN_UI_LOGS_URL
+          value: http://localhost:8001/api/v1/namespaces/knative-monitoring/services/kibana-logging/proxy/app/kibana#/
+        resources:
+          limits:
+            memory: 1000Mi
+          requests:
+            memory: 256Mi
 
 ---
-

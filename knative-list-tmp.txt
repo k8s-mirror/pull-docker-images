@@ -1,1 +1,2 @@
-docker.elastic.co/beats/filebeat:7.8.1,elasticmirror/filebeat
+gcr.io/knative-releases/knative.dev/serving/vendor/knative.dev/pkg/apiextensions/storageversion/cmd/migrate@sha256:e1ce411416ea2a2fe1b27554bf06ad82bdbf0eeaf3cef37072d2306593d4d6f3,knativedev/serving-pkg-apiextensions-storageversion-cmd-migrate
+gcr.io/knative-releases/knative.dev/eventing/vendor/knative.dev/pkg/apiextensions/storageversion/cmd/migrate@sha256:d3b40611a0a56970b834b2e9ca86503337973bc7acf0a92114afd74630b8ebe3,knativedev/eventing-pkg-apiextensions-storageversion-cmd-migrate
